@@ -62,7 +62,7 @@ int Empty_stack(Stack *s)
 void Pop(Stack *s, struct node *parent, int *mark, int *presequence_num, int *insequence_num, int *lenth)
 {
 	Stacknode *p = s->top->next;
-	if (Empty_stack)
+	if (Empty_stack(s))
 	{
 		exit(-1);
 	}
@@ -146,10 +146,11 @@ int find(char a[], int n, char b)//参数说明：a为待查数组，n为其长度，b是待查元素
 //非递归建立二叉树
 pNode Creat_tree_no_recur(char *presequence, char *insequence, int n)
 {
-	pNode parent=NULL, head;
+	pNode parent, head;
 	int mark, i, j, m, k;//标记，先序序列的起始标号，中序序列的起始标号，序列长度，k用于计数
 	Stack stk;
 	Create_stack(&stk);
+	parent = (Node*)malloc(sizeof(Node));
 	head = (Node*)malloc(sizeof(Node));
 	head->lchild = NULL;
 	head->rchild = NULL;
