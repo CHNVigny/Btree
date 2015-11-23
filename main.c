@@ -166,7 +166,7 @@ pNode Creat_tree_no_recur(char *presequence, char *insequence, int n)
 				parent->lchild->data = presequence[i];
 				parent->lchild->lchild = NULL;
 				parent->lchild->rchild = NULL;
-				k = 0;
+				k = 0;//k记录presequence[i]在中序序列中的位置
 				while (k < m)
 				{
 					if (presequence[i] == insequence[j + k])
