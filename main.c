@@ -232,10 +232,6 @@ pNode Creat_tree_recur(char *presequence, char *insequence, int n)//参数说明：先
 	return root;
 }
 
-/*
-
-*/
-
 //先序遍历二叉树
 void Preread(pNode root)
 {
@@ -304,6 +300,33 @@ void Seread(pNode root,Queue *que)
 	}
 }
 
+//寻找公共祖先
+void Find_Father(char a, char b, char Pre[], char In[])
+{
+	int n = strlen(In);
+	int H = find(In, n, a);
+	int L = find(In, n, b);
+	if (L > H)
+	{
+		int temp = H;
+		H = L;
+		L = temp;
+	}
+	int i;
+	for (i = 0;; i++)
+	{
+		int k = strchr(In, Pre[i]) - In;
+		if (k >= L && k < H)
+		{
+			printf("最近祖先是%c", Pre[i]);
+			return;
+		}
+	}
+}
+
+
+
+
 
 //测试数据
 //先序序列：ABCDEGF
@@ -316,13 +339,14 @@ int main()
 	int n;
 	Node *root;
 	Queue que;
+	char a, b;
 	Creat_queue(&que);//建队
 	printf("请输入先序序列：\n");
 	gets(presequence);
 	printf("请输入中序序列：\n");
 	gets(insequence);
 	n = strlen(presequence);
-	root = Creat_tree_no_recur(presequence, insequence, n);
+	root = Creat_tree_recur(presequence, insequence, n);
 	Preread(root);
 	printf("\n");
 	Inread(root);
@@ -330,6 +354,12 @@ int main()
 	Postread(root);
 	printf("\n");
 	Seread(root, &que);
+	printf("\n");
+	printf("请输入要寻找公共祖先的两个节点：\n");
+	a = getchar();
+	getchar();
+	b = getchar();
+	Find_Father(a, b, presequence, insequence);
 	system("pause");
 	return 0;
 }
